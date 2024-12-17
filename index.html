@@ -7,53 +7,51 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Funktion zum Öffnen des Popovers
-            document.querySelectorAll('.popover-trigger').forEach(link => {
-                link.addEventListener('click', function (event) {
-                    event.preventDefault();  // Verhindere das Öffnen einer neuen Seite
+            function openPopover() {
+                // Prüfen, ob das Popover bereits existiert
+                let existingPopover = document.querySelector('#custom-popover');
+                if (existingPopover) {
+                    existingPopover.remove();  // Entferne das vorherige Popover
+                }
 
-                    // Prüfen, ob das Popover bereits existiert
-                    let existingPopover = document.querySelector('#custom-popover');
-                    if (existingPopover) {
-                        existingPopover.remove();  // Entferne das vorherige Popover
-                    }
+                // Erstelle das Popover-Element
+                let popover = document.createElement('div');
+                popover.id = 'custom-popover';
+                popover.style.position = 'fixed';
+                popover.style.bottom = '20px';
+                popover.style.right = '20px';
+                popover.style.width = '300px';
+                popover.style.boxShadow = '0px 4px 8px rgba(0,0,0,0.2)';
+                popover.style.border = '1px solid #ddd';
+                popover.style.borderRadius = '8px';
+                popover.style.backgroundColor = '#fff';
+                popover.style.zIndex = '9999';  // Sicherstellen, dass es vor dem Inhalt der Seite ist
+                popover.style.padding = '10px';
 
-                    // Erstelle das Popover-Element
-                    let popover = document.createElement('div');
-                    popover.id = 'custom-popover';
-                    popover.style.position = 'fixed';
-                    popover.style.bottom = '20px';
-                    popover.style.right = '20px';
-                    popover.style.width = '300px';
-                    popover.style.boxShadow = '0px 4px 8px rgba(0,0,0,0.2)';
-                    popover.style.border = '1px solid #ddd';
-                    popover.style.borderRadius = '8px';
-                    popover.style.backgroundColor = '#fff';
-                    popover.style.zIndex = '9999';  // Sicherstellen, dass es vor dem Power BI Bericht ist
-                    popover.style.padding = '10px';
+                // Füge den Inhalt des Popovers hinzu
+                popover.innerHTML = `
+                    <div style="font-weight: bold; margin-bottom: 10px;">Popover Title</div>
+                    <div>Ich bin ein Popover</div>
+                    <button id="close-popover" style="margin-top: 10px; padding: 5px 10px; border: none; background-color: #007bff; color: white; border-radius: 5px; cursor: pointer;">
+                        Schließen
+                    </button>
+                `;
 
-                    // Füge den Inhalt des Popovers hinzu
-                    popover.innerHTML = `
-                        <div style="font-weight: bold; margin-bottom: 10px;">Popover Title</div>
-                        <div>Ich bin ein Popover</div>
-                        <button id="close-popover" style="margin-top: 10px; padding: 5px 10px; border: none; background-color: #007bff; color: white; border-radius: 5px; cursor: pointer;">
-                            Schließen
-                        </button>
-                    `;
+                // Füge das Popover zum Body der aktuellen Seite hinzu
+                document.body.appendChild(popover);
 
-                    // Füge das Popover zum Body der aktuellen Seite hinzu
-                    document.body.appendChild(popover);
-
-                    // Event-Listener für den Schließen-Button
-                    document.getElementById('close-popover').addEventListener('click', function () {
-                        popover.remove();  // Entferne das Popover, wenn auf den Schließen-Button geklickt wird
-                    });
+                // Event-Listener für den Schließen-Button
+                document.getElementById('close-popover').addEventListener('click', function () {
+                    popover.remove();  // Entferne das Popover, wenn auf den Schließen-Button geklickt wird
                 });
-            });
+            }
+
+            // Rufe die Funktion sofort beim Laden der Seite auf
+            openPopover();
         });
     </script>
 </head>
 <body>
-    <!-- Link, der das Popover öffnet -->
-    <a href="#" class="popover-trigger">Öffne Popover</a>
+    <!-- Das Popover wird automatisch beim Laden der Seite geöffnet -->
 </body>
 </html>
