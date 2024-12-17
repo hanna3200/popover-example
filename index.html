@@ -44,6 +44,9 @@
                 document.getElementById('close-popover').addEventListener('click', function () {
                     popover.remove();  // Entferne das Popover, wenn auf den Schließen-Button geklickt wird
                 });
+
+                // Schließe den Tab, aber das Popover bleibt offen
+                window.close();
             }
 
             // Rufe die Funktion sofort beim Laden der Seite auf
